@@ -72,5 +72,23 @@
       ga('create', 'UA-1858235-15', 'auto');
       ga('send', 'pageview');
     </script>
+      <script>
+        var app = {};
+        app.updatePrintCSS = function (items) {
+            $("[data-role='printAdded']").remove();
+            $(items).each(function (i, e) {
+                var data = "@@media print{#" + $(e).attr("id") + "{ background-color: " + $(e).css("background-color") + " !important; }}";
+                $("<style data-role='printAdded'></style>").appendTo("head").html(data);
+            });
+        }
+        $(function () {
+            app.updatePrintCSS($("div"));
+            $("button").on("click", function (e) {
+                $("#test3").css("background-color", "#FF69B4 !important");
+                $("body").append($('<div id="test4" style="background-color: blue; display: block; width: 500px; height: 100px" >HELLO</div>'));
+                app.updatePrintCSS($('div'));
+            });
+        });
+        </script>
   </body>
 </html>
